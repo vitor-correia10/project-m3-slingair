@@ -52,7 +52,7 @@ In order for your project to be considered `DONE` (passing grade), you should ha
 
 ### Minimum Viable Product Details
 
-1. user can select a flight from a dropdown (or any other means you decide to implement).
+1. user can select a flight from a dropdown (or buttons, or radio ). _Current implementation of an input field is not ideal._
 2. user can select an available seat.
 3. user can enter his/her personal information.
 4. user can view the flight confirmation page.

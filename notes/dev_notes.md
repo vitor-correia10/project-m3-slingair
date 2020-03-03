@@ -56,11 +56,12 @@ What follows is what information that I have been given related to the backend (
 
 **Before connecting to this API, see Scott to confirm that you are _ready.**
 
-The url of the REST API that stores the data is located at `https://journeyedu.herokuapp.com/`.
+The url of the REST API that stores the data is located at `https://journeyedu.herokuapp.com`.
 
 ### List of endpoints
- 
-| `GET`   | `/hello/:code`    | returns 'Hello' in the `code` provided |
+
+||||
+| --- | --- | --- |
 | `GET`   | `/slingair/flights` | returns an array of flight numbers |
 | `GET`   | `/slingair/flights/:flight` | returns info on a specific flight |
 | `GET`   | `/slingair/flights/:flight/:seat` | returns info on a specific seat |
