@@ -64,5 +64,5 @@ The url of the REST API that stores the data is located at `https://journeyedu.h
 | --- | --- | --- |
 | `GET`   | `/slingair/flights` | returns an array of flight numbers |
 | `GET`   | `/slingair/flights/:flight` | returns info on a specific flight |
-| `GET`   | `/slingair/flights/:flight/:seat` | returns info on a specific seat |
+| `GET`   | `/slingair/users`  | returns an array of all users. Accepts query params of `limit` and `start` for pagination. _If values are not provided, it will return the first 10 users_ |
 | `POST`  | `/slingair/users` | creates a new user/reservation |

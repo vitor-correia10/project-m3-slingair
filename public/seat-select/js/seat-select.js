@@ -15,9 +15,13 @@ const renderSeats = () => {
         seatsDiv.appendChild(row);
         for (let s = 1; s < 7; s++) {
             const seatNumber = `${r}${alpha[s-1]}`;
-            const seat = document.createElement('li')
+            const seat = document.createElement('li');
+
+            // Two types of seats to render
             const seatOccupied = `<li><label class="seat"><span id="${seatNumber}" class="occupied">${seatNumber}</span></label></li>`
             const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`        
+            
+            // TODO: render the seat availability based on the data...
             seat.innerHTML = seatAvailable;
             row.appendChild(seat);
         }
@@ -43,7 +47,11 @@ const renderSeats = () => {
 const toggleFormContent = (event) => {
     const flightNumber = flightInput.value;
     console.log('toggleFormContent: ', flightNumber);
-    
+    fetch(`/flights/${flightNumber}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
     // TODO: contact the server to get the seating availability
     //      - only contact the server if the flight number is this format 'SA###'.
     //      - Do I need to create an error message if the number is not valid?
@@ -52,8 +60,19 @@ const toggleFormContent = (event) => {
     renderSeats();
 }
 
-const handleConfirmSeat = () => {
+const handleConfirmSeat = (event) => {
+    event.preventDefault();
     // TODO: everything in here!
+    fetch('/users', {
+        method: 'POST',
+        body: JSON.stringify({
+            'givenName': document.getElementById('givenName').value
+        }),
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+        }
+    })
 
 }
 
