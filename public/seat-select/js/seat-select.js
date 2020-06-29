@@ -1,14 +1,11 @@
 const flightInput = document.getElementById('flight');
 const seatsDiv = document.getElementById('seats-section');
-const confirmButton = document.getElementById(
-  'confirm-button'
-);
+const confirmButton = document.getElementById('confirm-button');
 
 let selection = '';
 
 const renderSeats = () => {
-  document.querySelector('.form-container').style.display =
-    'block';
+  document.querySelector('.form-container').style.display = 'block';
 
   const alpha = ['A', 'B', 'C', 'D', 'E', 'F'];
   for (let r = 1; r < 11; r++) {
@@ -36,17 +33,11 @@ const renderSeats = () => {
       selection = seat.value;
       seatMap.forEach((x) => {
         if (x.value !== seat.value) {
-          document
-            .getElementById(x.value)
-            .classList.remove('selected');
+          document.getElementById(x.value).classList.remove('selected');
         }
       });
-      document
-        .getElementById(seat.value)
-        .classList.add('selected');
-      document.getElementById(
-        'seat-number'
-      ).innerText = `(${selection})`;
+      document.getElementById(seat.value).classList.add('selected');
+      document.getElementById('seat-number').innerText = `(${selection})`;
       confirmButton.disabled = false;
     };
   });
