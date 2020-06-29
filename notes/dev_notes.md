@@ -27,7 +27,7 @@ Where users can view their reservation. _They didn't even provide me with a prop
 
 ### `/admin`
 
-_There is now some talk of adding an admin page that would allow the admin to see all of the reservations for a selected flight._
+_There is now some talk of adding an admin page that would allow the big boss to see all of the reservations for a selected flight._
 
 **WTF?!** This is not what I signed up for.
 
