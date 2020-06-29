@@ -25,7 +25,7 @@ Looks like you're on your own...
 
 ### Functionality
 
-- When a user navigates to `/seat-select` he/she is presented with an input to enter the flight number.
+- When a user navigates to `/seat-select` they are presented with an input to enter the flight number.
 - With the flight number, make a request to the server for the seating availability on that flight.
 - When a response with seating is received, display the seating input as well as the form requesting user's information.
 - User selects a seat, enters information and clicks 'Confirm'.
@@ -34,11 +34,19 @@ Looks like you're on your own...
 
 ## Project Setup
 
+Install dependencies:
+
 ```
 yarn install
 ```
 
-This will start the server and make the static pages accessible via their endpoint.
+Start a dev server with:
+
+```
+yarn dev
+```
+
+This will run the server and make the static pages accessible via their endpoint (eg. `/seat-select`)
 
 ## Developer Notes
 
@@ -52,19 +60,18 @@ In order for your project to be considered `DONE` (passing grade), you should ha
 
 ### Minimum Viable Product Details
 
-1. user can select a flight from a dropdown (or buttons, or radio ). _Current implementation of an input field is not ideal._
+1. user can select a flight from a dropdown. _Current implementation of an input field is not ideal._
 2. user can select an available seat.
-3. user can enter his/her personal information.
+3. user can enter their personal information.
 4. user can view the flight confirmation page.
-5. given a `userId` (or other user info --up to you), user should be able to view his reservation.
+5. given a `userId` (or other user info - up to you), user should be able to view their reservation.
 
 _Note that mutated test data will be preserved as long as your server is running. It stays in memory. The changes will only be reset when the server is restarted._
 
 ### Optional
 
-1. Connect to the remote db/server to get "live" data. See the `dev_notes` for information on the endpoints.
-2. Create an admin page that displays the seat status for a flight.
-    - you could reuse the flight selection method you implemented above.
-    - this page should display a table of all seats, and their status.
-3. The admin page also displays the name of the user in the seat.
-4. Each seat also has a link to view the reservation details. 
+1. Create an admin page that displays the seat status for a flight.
+   - you could reuse the flight selection method you implemented above.
+   - this page should display a table of all seats, and their status.
+2. The admin page also displays the name of the user in the seat.
+3. Each seat also has a link to view the reservation details.
