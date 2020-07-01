@@ -9,9 +9,9 @@ function getFlights() {
   fetch('/flights')
     .then((res) => res.json())
     .then((data) => {
-      data.forEach((flightNumber) => {
-        thisFlight = document.createElement("option");
-        thisFlight.innerText = flightNumber;
+      data.forEach((flightNumberAvailable) => {
+        let thisFlight = document.createElement("option");
+        thisFlight.innerText = flightNumberAvailable;
         flightInput.appendChild(thisFlight);
       })
     })
@@ -64,8 +64,19 @@ const toggleFormContent = (event) => {
   fetch(`/flights/${flightNumber}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      data.forEach((element) => {
+        let seatId = element.id;
+        let isSeatAvailable = element.isAvailable;
+
+        if (!isSeatAvailable) {
+          document.getElementById(seatId).className = 'occupied';
+          document.getElementById(seatId).onclick = () => {
+            return false;
+          }
+        }
+      })
     });
+
   // TODO: contact the server to get the seating availability
   //      - only contact the server if the flight number is this format 'SA###'.
   //      - Do I need to create an error message if the number is not valid?
@@ -81,6 +92,8 @@ const handleConfirmSeat = (event) => {
     method: 'POST',
     body: JSON.stringify({
       givenName: document.getElementById('givenName').value,
+      surname: document.getElementById('surname').value,
+      email: document.getElementById('email').value,
     }),
     headers: {
       Accept: 'application/json',
@@ -88,7 +101,7 @@ const handleConfirmSeat = (event) => {
     },
   })
   //.then((res) => { console.log(res.json()) return res.json()})
-  //.then(() => { window.location = `/seat-select/confirmed.html?reservationId=${json.reservationId}` });
+  //.then(() => { window.location = `/seat-select/confirmed.html?reservationEmail=${json.reservationEmail}` });
 };
 
 flightInput.addEventListener('change', toggleFormContent);
