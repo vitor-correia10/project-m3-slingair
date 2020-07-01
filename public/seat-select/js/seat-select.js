@@ -4,6 +4,21 @@ const confirmButton = document.getElementById('confirm-button');
 
 let selection = '';
 
+//Available flights
+function getFlights() {
+  fetch('/flights')
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((flightNumber) => {
+        thisFlight = document.createElement("option");
+        thisFlight.innerText = flightNumber;
+        flightInput.appendChild(thisFlight);
+      })
+    })
+}
+getFlights()
+
+//Seats
 const renderSeats = () => {
   document.querySelector('.form-container').style.display = 'block';
 
@@ -71,7 +86,9 @@ const handleConfirmSeat = (event) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  });
+  })
+  //.then((res) => { console.log(res.json()) return res.json()})
+  //.then(() => { window.location = `/seat-select/confirmed.html?reservationId=${json.reservationId}` });
 };
 
-flightInput.addEventListener('blur', toggleFormContent);
+flightInput.addEventListener('change', toggleFormContent);
