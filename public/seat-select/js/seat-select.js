@@ -1,6 +1,9 @@
 const flightInput = document.getElementById('flight');
 const seatsDiv = document.getElementById('seats-section');
 const confirmButton = document.getElementById('confirm-button');
+const givenName = document.getElementById('givenName');
+const surname = document.getElementById('surname');
+const email = document.getElementById('email');
 
 let selection = '';
 
@@ -20,6 +23,8 @@ getFlights()
 
 //Seats
 const renderSeats = () => {
+  seatsDiv.innerHTML = '';
+
   document.querySelector('.form-container').style.display = 'block';
 
   const alpha = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -42,6 +47,7 @@ const renderSeats = () => {
     }
   }
 
+  confirmButton.disabled = true;
   let seatMap = document.forms['seats'].elements['seat'];
   seatMap.forEach((seat) => {
     seat.onclick = () => {
@@ -59,6 +65,7 @@ const renderSeats = () => {
 };
 
 const toggleFormContent = (event) => {
+  event.preventDefault();
   const flightNumber = flightInput.value;
   console.log('toggleFormContent: ', flightNumber);
   fetch(`/flights/${flightNumber}`)
@@ -77,31 +84,37 @@ const toggleFormContent = (event) => {
       })
     });
 
-  // TODO: contact the server to get the seating availability
-  //      - only contact the server if the flight number is this format 'SA###'.
-  //      - Do I need to create an error message if the number is not valid?
-
-  // TODO: Pass the response data to renderSeats to create the appropriate seat-type.
   renderSeats();
 };
 
 const handleConfirmSeat = (event) => {
   event.preventDefault();
-  // TODO: everything in here!
-  fetch('/users', {
+
+  let data = {
+    flight: flight.value,
+    givenName: givenName.value,
+    surname: surname.value,
+    email: email.value,
+    seat: selection,
+  }
+
+  fetch('/reservations', {
     method: 'POST',
-    body: JSON.stringify({
-      givenName: document.getElementById('givenName').value,
-      surname: document.getElementById('surname').value,
-      email: document.getElementById('email').value,
-    }),
+    body: JSON.stringify(data),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
   })
-  //.then((res) => { console.log(res.json()) return res.json()})
-  //.then(() => { window.location = `/seat-select/confirmed.html?reservationEmail=${json.reservationEmail}` });
+    .then((res) => res.json())
+    .then((responseBody) => {
+      const { status, error } = responseBody;
+      if (status === 'success') {
+        window.location.href = `/seat-select/confirmed.html?email=${email.value}`;
+      } else if (error) {
+        console.log(error);
+      }
+    });
 };
 
 flightInput.addEventListener('change', toggleFormContent);

@@ -85,6 +85,12 @@ p, a, li, blockquote, input {
     width: 125px;
     margin-left: var(--page-padding);
 }
+#flight{
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
 
 input {
     font-size: 24px;

@@ -1,14 +1,14 @@
 'use strict';
 
+const { reservations } = require('./test-data/reservations')
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const { flights } = require('./test-data/flightSeating');
+const { v4 } = require('uuid');
 
-// import { v4 as uuidv4 } from 'uuid';
-// v4();
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 const handleFlight = (req, res) => {
   const { flightNumber } = req.params;
@@ -26,9 +26,16 @@ const handleFlightsAvailable = (req, res) => {
   res.status(200).send(flightsAvailable);
 };
 
-const handleUsers = (req, res) => {
+const makeReservation = (req, res) => {
   const formData = req.body;
+  console.log(formData)
+  const reservation = {
+    id: v4(),
+    ...formData
+  }
+  reservations.push(reservation)
 
+  res.send({ status: 'success' })
 }
 
 express()
@@ -49,10 +56,22 @@ express()
   .get('/flights/', handleFlightsAvailable)
   .get('/flights/:flightNumber', handleFlight)
   // .get('reservations/:reservationEmail', (req, res) => {
-  //   const emailReservation = req.query.reservationEmail;
+  //   const id = v4();
+  //   const emailReservation = req.query.email;
+  //   const givenName = req.query.givenName;
+  //   const flight = req.query.flight;
+  //   const surname = req.query.surname;
+  //   const seatNumber = req.query.seat;
 
-  //   res.render("./reservations/", { emailReservation })
+  //   res.render("./reservations/", { id, emailReservation, givenName, surname, flight, seatNumber })
   // })
-  .post('/users', handleUsers)
+  .get('/seat-select/confirmed/:reservationEmail', (req, res) => {
+    console.log(reservations);
+    console.log(req.params.reservationEmail);
+    const emailReservation = req.params.reservationEmail;
+    const reservation = reservations.find(reservation => reservation.email === emailReservation)
+    res.send(reservation)
+  })
+  .post('/reservations', makeReservation)
   .use((req, res) => res.send('Not Found'))
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));
