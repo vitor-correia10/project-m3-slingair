@@ -55,19 +55,14 @@ express()
   // endpoints
   .get('/flights/', handleFlightsAvailable)
   .get('/flights/:flightNumber', handleFlight)
-  // .get('reservations/:reservationEmail', (req, res) => {
-  //   const id = v4();
-  //   const emailReservation = req.query.email;
-  //   const givenName = req.query.givenName;
-  //   const flight = req.query.flight;
-  //   const surname = req.query.surname;
-  //   const seatNumber = req.query.seat;
-
-  //   res.render("./reservations/", { id, emailReservation, givenName, surname, flight, seatNumber })
-  // })
   .get('/seat-select/confirmed/:reservationEmail', (req, res) => {
-    console.log(reservations);
-    console.log(req.params.reservationEmail);
+    // console.log(reservations);
+    // console.log(req.params.reservationEmail);
+    const emailReservation = req.params.reservationEmail;
+    const reservation = reservations.find(reservation => reservation.email === emailReservation)
+    res.send(reservation)
+  })
+  .get('/seat-select/view-reservation/:reservationEmail', (req, res) => {
     const emailReservation = req.params.reservationEmail;
     const reservation = reservations.find(reservation => reservation.email === emailReservation)
     res.send(reservation)

@@ -8,7 +8,7 @@ let reservationEmail = location.search.split('=')[1];
 // console.log(reservation);
 
 
-const getReservations = async () => {
+const getConfirmation = async () => {
     const request = `/seat-select/confirmed/${reservationEmail}`
     console.log(request)
     const response = await fetch(request)
@@ -16,7 +16,7 @@ const getReservations = async () => {
     console.log(data)
     flightNum.innerText = data.flight;
     seat.innerText = data.seat;
-    userName.innerText = data.givenName;
+    userName.innerText = `${data.givenName} ${data.surname}`;
     userEmail.innerText = data.email;
 };
-getReservations();
+getConfirmation();
