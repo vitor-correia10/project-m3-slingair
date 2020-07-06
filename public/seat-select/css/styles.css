@@ -210,6 +210,8 @@ input {
     margin: auto 12px auto 18px;
     padding: 30px;
     width: 450px;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-item {
@@ -266,3 +268,34 @@ input {
 }
 
 .form-container { display: none; }
+
+/*Reservation page*/
+#view-reservation{
+    background: var(--alabama-crimson);
+    margin: 30px 10px 0 10px;
+    font-size: 24px;
+}
+
+.reservation-box {
+    border: 3px solid var(--alabama-crimson);
+    border-radius: 5px;
+    margin: 18px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-message{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.reservation-message #name{
+    font-weight: 600;
+    font-style: italic;
+}
+
+.reservation-message .airline{
+    font-weight: 600;
+    font-style: italic;
+}

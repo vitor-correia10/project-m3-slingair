@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8080;
 const handleFlight = (req, res) => {
   const { flightNumber } = req.params;
   // get flights available
-  const allFlights = Object.keys(flights);
+  // const allFlights = Object.keys(flights);
   // is flightNumber in the array?
   // console.log('REAL FLIGHT: ', allFlights.includes(flightNumber));
   // console.log('Returning ------>', flights[flightNumber]);
@@ -22,18 +22,20 @@ const handleFlight = (req, res) => {
 
 const handleFlightsAvailable = (req, res) => {
   let flightsAvailable = Object.keys(flights);
-  console.log(flightsAvailable);
+  // console.log(flightsAvailable);
   res.status(200).send(flightsAvailable);
 };
 
 const makeReservation = (req, res) => {
   const formData = req.body;
-  console.log(formData)
   const reservation = {
+    //generate random ID
     id: v4(),
+    //bring all data from req.body
     ...formData
   }
   reservations.push(reservation)
+  // console.log('***Reservations data array', reservations)
 
   res.send({ status: 'success' })
 }
@@ -55,9 +57,8 @@ express()
   // endpoints
   .get('/flights/', handleFlightsAvailable)
   .get('/flights/:flightNumber', handleFlight)
+  .post('/reservations', makeReservation)
   .get('/seat-select/confirmed/:reservationEmail', (req, res) => {
-    // console.log(reservations);
-    // console.log(req.params.reservationEmail);
     const emailReservation = req.params.reservationEmail;
     const reservation = reservations.find(reservation => reservation.email === emailReservation)
     res.send(reservation)
@@ -67,6 +68,5 @@ express()
     const reservation = reservations.find(reservation => reservation.email === emailReservation)
     res.send(reservation)
   })
-  .post('/reservations', makeReservation)
   .use((req, res) => res.send('Not Found'))
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

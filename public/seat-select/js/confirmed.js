@@ -2,10 +2,12 @@ const flightNum = document.getElementById('flight');
 const seat = document.getElementById('seat');
 const userName = document.getElementById('name');
 const userEmail = document.getElementById('email');
+const viewReservation = document.getElementById("view-reservation");
 
 let reservationEmail = location.search.split('=')[1];
 
 // console.log(reservation);
+
 
 
 const getConfirmation = async () => {
@@ -20,3 +22,7 @@ const getConfirmation = async () => {
     userEmail.innerText = data.email;
 };
 getConfirmation();
+
+viewReservation.onclick = function () {
+    location.href = `/seat-select/view-reservation.html?email=${reservationEmail}`;
+};

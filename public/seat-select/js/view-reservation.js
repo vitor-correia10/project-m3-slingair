@@ -2,6 +2,7 @@ const flightReserved = document.getElementById('flight');
 const seat = document.getElementById('seat');
 const userName = document.getElementById('name');
 const userEmail = document.getElementById('email');
+const userId = document.getElementById('id');
 
 let reservationEmail = location.search.split('=')[1];
 
@@ -18,5 +19,6 @@ const getReservations = async () => {
     seat.innerText = data.seat;
     userName.innerText = `${data.givenName} ${data.surname}`;
     userEmail.innerText = data.email;
+    userId.innerText = data.id;
 };
 getReservations();
