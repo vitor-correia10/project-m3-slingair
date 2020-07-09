@@ -8,8 +8,6 @@ let reservationEmail = location.search.split('=')[1];
 
 // console.log(reservation);
 
-
-
 const getConfirmation = async () => {
     const request = `/seat-select/confirmed/${reservationEmail}`
     console.log(request)

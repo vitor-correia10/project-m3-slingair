@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0, minimal-ui" />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+    <title>Seat Selection</title>
+</head>
+
+<body>
+    <div class='main'>
+        <header class='header'>
+            <h1 class='header-logo'>Air Slingshot</h1>
+    </div>
+    <div class="flight-select">
+        <label for="flight">Flight Number :</label>
+        <select name="flight" id="flight" class="flight" type="text" placeholder="flight #">
+            <option value='undefined'>Select a Flight</option>
+        </select>
+    </div>
+    <div class="form-container">
+        <h2>Select your seat and Provide your information!</h2>
+        <div id="seats" class="content" name="salesForm" onsubmit="handlReservedInfo(event)">
+            <div class='form-content plane'>
+                <div id="seats-section" class="admin"></div>
+            </div>
+            <div class="form-content user">
+                <div class='form-item'>
+                    First Name: <span id="givenName"> </span>
+                </div>
+                <div class='form-item'>
+                    Last Name: <span id="surname"> </span>
+                </div>
+                <div class='form-item'>
+                    Email: <span id="email"> </span>
+                </div>
+                <button id="view-reservation-admin">View reservations</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="./js/admin.js"></script>
+</body>
+
+</html>

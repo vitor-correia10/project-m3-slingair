@@ -89,6 +89,7 @@ const toggleFormContent = (event) => {
 
 const handleConfirmSeat = (event) => {
   event.preventDefault();
+  var form = document.getElementsByName("salesForm");
 
   let data = {
     flight: flight.value,
@@ -97,7 +98,6 @@ const handleConfirmSeat = (event) => {
     email: email.value,
     seat: selection,
   }
-
   fetch('/reservations', {
     method: 'POST',
     body: JSON.stringify(data),

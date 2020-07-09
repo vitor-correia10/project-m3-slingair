@@ -17,7 +17,11 @@ const handleFlight = (req, res) => {
   // is flightNumber in the array?
   // console.log('REAL FLIGHT: ', allFlights.includes(flightNumber));
   // console.log('Returning ------>', flights[flightNumber]);
-  res.status(200).send(flights[flightNumber]);
+  if (flights[flightNumber]) {
+    res.status(200).send(flights[flightNumber]);
+  } else {
+    res.status(400).send({ message: "Flight not Found" });
+  }
 };
 
 const handleFlightsAvailable = (req, res) => {
@@ -28,6 +32,7 @@ const handleFlightsAvailable = (req, res) => {
 
 const makeReservation = (req, res) => {
   const formData = req.body;
+
   const reservation = {
     //generate random ID
     id: v4(),
@@ -35,10 +40,36 @@ const makeReservation = (req, res) => {
     ...formData
   }
   reservations.push(reservation)
-  // console.log('***Reservations data array', reservations)
+  const findSeat = formData.seat;
+  console.log('---------->', findSeat)
 
   res.send({ status: 'success' })
 }
+
+const viewReservations = (req, res) => {
+  const reservation = reservations.find(
+    reservation => reservation.seat === req.params.seat && reservation.flight === req.params.flight
+  );
+  if (reservation == undefined) {
+    res.status(200).send([]);
+  }
+  else {
+    res.status(200).send(reservation);
+  }
+}
+
+const getReservation = (req, res) => {
+  res.status(200).render('./seat-select/admin', {
+    flightNames: Object.keys(flights),
+    flights: flights,
+  })
+  console.log('******Testing:', Object.keys(flights))
+}
+
+// declare the 404 function
+const handleFourOhFour = (req, res) => {
+  res.status(404).send("I couldn't find what you're looking for.");
+};
 
 express()
   .use(function (req, res, next) {
@@ -54,13 +85,16 @@ express()
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
 
+
   // endpoints
   .get('/flights/', handleFlightsAvailable)
   .get('/flights/:flightNumber', handleFlight)
   .post('/reservations', makeReservation)
+  .get('/reservations/:flight/:seat', viewReservations)
   .get('/seat-select/confirmed/:reservationEmail', (req, res) => {
     const emailReservation = req.params.reservationEmail;
     const reservation = reservations.find(reservation => reservation.email === emailReservation)
+    // console.log('------------->', reservation)
     res.send(reservation)
   })
   .get('/seat-select/view-reservation/:reservationEmail', (req, res) => {
@@ -68,5 +102,9 @@ express()
     const reservation = reservations.find(reservation => reservation.email === emailReservation)
     res.send(reservation)
   })
+  .get("/admin", getReservation)
+
+  // catch all endpoint that will send the 404 message.
+  .get('*', handleFourOhFour)
   .use((req, res) => res.send('Not Found'))
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

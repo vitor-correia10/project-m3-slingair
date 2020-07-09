@@ -17,7 +17,7 @@
     </div>
     </div>
     <p class='footer-logo'>The only way to fly!</p>
-    <div class="reservation-box">
+    <div class="reservation-box" id="reservation-box">
         <div class="reservation-message">
             <p>Hello <span id="name"></span>!</p>
             <p> Thank you for choosing <span class="airline">Slingshot Airlines</span>!</p>
@@ -29,6 +29,18 @@
             <li>seat #: <span id="seat"></span></li>
         </ul>
     </div>
+    <form id="search-reservations" class="content" name="salesForm" onsubmit="handleViewReservation(event)">
+        <div class="form-content user">
+            <p class="view-reservations">Search Reservation By Email</p>
+            <div class='form-item'>
+                <label for="reservedEmail">Email</label>
+                <input id="reservedEmail" type="email" name="email" placeholder="Your email" required />
+            </div>
+            <button class='button confirm' id='confirm-button'>
+                Search
+            </button>
+        </div>
+    </form>
     <script src="./js/view-reservation.js"></script>
 </body>
 

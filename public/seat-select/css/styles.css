@@ -299,3 +299,35 @@ input {
     font-weight: 600;
     font-style: italic;
 }
+
+.view-reservations{
+    color: var(--alabama-crimson);
+    margin: 0 auto;
+    font-family: var(--heading-font);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* admin page */
+#seats-section.admin .occupied{
+    background: var(--selective-yellow);
+    color: #fff;
+    opacity: .5;
+    cursor: pointer;
+}
+
+#seats-section.admin .avail{
+    cursor: not-allowed;
+}
+
+#view-reservation-admin{
+    background: var(--alabama-crimson);
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-family: var(--heading-font);
+    font-size: 24px;
+    width: 100%;
+    visibility: hidden;
+}
