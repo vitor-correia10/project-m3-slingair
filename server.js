@@ -16,7 +16,6 @@ const handleFlight = (req, res) => {
   // const allFlights = Object.keys(flights);
   // is flightNumber in the array?
   // console.log('REAL FLIGHT: ', allFlights.includes(flightNumber));
-  // console.log('Returning ------>', flights[flightNumber]);
   if (flights[flightNumber]) {
     res.status(200).send(flights[flightNumber]);
   } else {
@@ -26,7 +25,6 @@ const handleFlight = (req, res) => {
 
 const handleFlightsAvailable = (req, res) => {
   let flightsAvailable = Object.keys(flights);
-  // console.log(flightsAvailable);
   res.status(200).send(flightsAvailable);
 };
 
@@ -40,9 +38,23 @@ const makeReservation = (req, res) => {
     ...formData
   }
   reservations.push(reservation)
-  const findSeat = formData.seat;
-  console.log('---------->', findSeat)
 
+  const findSeat = formData.seat;
+
+  const findFlight = flights[formData.flight]
+
+  findFlight.forEach((element) => {
+    let seatId = element.id;
+    let isSeatAvailable = element.isAvailable;
+
+    if (seatId === formData.seat) {
+      isSeatAvailable = false;
+      // console.log('Seat available ->', seatId)
+      // console.log('available ->', isSeatAvailable)
+    }
+  });
+  const findSeatBooked = findFlight.find(element => element === findSeat);
+  console.log('Find Seat Booked:', findSeatBooked)
   res.send({ status: 'success' })
 }
 
@@ -50,7 +62,7 @@ const viewReservations = (req, res) => {
   const reservation = reservations.find(
     reservation => reservation.seat === req.params.seat && reservation.flight === req.params.flight
   );
-  if (reservation == undefined) {
+  if (reservation === undefined) {
     res.status(200).send([]);
   }
   else {
@@ -94,7 +106,6 @@ express()
   .get('/seat-select/confirmed/:reservationEmail', (req, res) => {
     const emailReservation = req.params.reservationEmail;
     const reservation = reservations.find(reservation => reservation.email === emailReservation)
-    // console.log('------------->', reservation)
     res.send(reservation)
   })
   .get('/seat-select/view-reservation/:reservationEmail', (req, res) => {

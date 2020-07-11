@@ -97,7 +97,7 @@ flightInput.addEventListener('change', toggleFormContent);
 
 const handlReservedInfo = (event) => {
     event.preventDefault();
-    var form = document.getElementsByName("salesForm");
+    let form = document.getElementsByName("salesForm");
 
     let data = {
         flight: flight.value,

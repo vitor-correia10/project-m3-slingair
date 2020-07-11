@@ -6,14 +6,10 @@ const viewReservation = document.getElementById("view-reservation");
 
 let reservationEmail = location.search.split('=')[1];
 
-// console.log(reservation);
-
 const getConfirmation = async () => {
     const request = `/seat-select/confirmed/${reservationEmail}`
-    console.log(request)
     const response = await fetch(request)
     const data = await response.json()
-    console.log(data)
     flightNum.innerText = data.flight;
     seat.innerText = data.seat;
     userName.innerText = `${data.givenName} ${data.surname}`;

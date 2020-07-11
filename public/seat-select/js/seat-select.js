@@ -67,7 +67,6 @@ const renderSeats = () => {
 const toggleFormContent = (event) => {
   event.preventDefault();
   const flightNumber = flightInput.value;
-  console.log('toggleFormContent: ', flightNumber);
   fetch(`/flights/${flightNumber}`)
     .then((res) => res.json())
     .then((data) => {
@@ -89,7 +88,7 @@ const toggleFormContent = (event) => {
 
 const handleConfirmSeat = (event) => {
   event.preventDefault();
-  var form = document.getElementsByName("salesForm");
+  let form = document.getElementsByName("salesForm");
 
   let data = {
     flight: flight.value,
