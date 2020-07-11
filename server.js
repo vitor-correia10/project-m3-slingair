@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const { flights } = require('./test-data/flightSeating');
 const { v4 } = require('uuid');
+const flightSeating = require('./test-data/flightSeating');
 
 
 const PORT = process.env.PORT || 8080;
@@ -45,12 +46,9 @@ const makeReservation = (req, res) => {
 
   findFlight.forEach((element) => {
     let seatId = element.id;
-    let isSeatAvailable = element.isAvailable;
 
     if (seatId === formData.seat) {
-      isSeatAvailable = false;
-      // console.log('Seat available ->', seatId)
-      // console.log('available ->', isSeatAvailable)
+      element.isAvailable = false;
     }
   });
   const findSeatBooked = findFlight.find(element => element === findSeat);
